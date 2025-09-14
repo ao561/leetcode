@@ -1,14 +1,17 @@
 class Solution:
     def reverse(self, x: int) -> int:
-        num = str(x)
-        res = 0
-
-        if x >= 0:
-            res = int(num[::-1])
-        elif x < 0:
-            res = -1 * int(num[1:][::-1])
+        min_int, max_int = -2**31, 2**31-1
+        reversed_x = 0
         
-        if res > (2**31)-1 or res < -2**31:
+        sign = -1 if x < 0 else 1
+
+        x = abs(x)
+
+        while x:
+            digit = x%10
+            reversed_x = reversed_x * 10 + digit
+            x //= 10
+        reversed_x *= sign
+        if reversed_x < min_int or reversed_x > max_int:
             return 0
-        else:
-            return res
+        return reversed_x
